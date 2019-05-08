@@ -1,9 +1,10 @@
-/bin/*.*
-/lib/*.*
+bin/*.*
+lib/*.*
 /tools
 /ffmpeg411
 /files
 /examples
 /.vs
+
 
 
