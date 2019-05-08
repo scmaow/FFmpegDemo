@@ -2,7 +2,11 @@ bin/*.*
 lib/*.*
 /tools
 /ffmpeg411
-/files
+/files/aac/*.*
+/files/h264/*.*
+/files/mp4/*.*
+/files/pcm/*.*
+/files/yuv/*.*
 /examples
 /.vs
 
