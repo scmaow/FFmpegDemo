@@ -1,2 +1,3 @@
 ﻿  Demuxer.cpp
-  Demuxer.vcxproj -> H:\VSProject\FFmpegDemo\Demuxer\..\bin\Demuxer.exe
+  LINK : 没有找到 ..\bin\Demuxer.exe 或上一个增量链接没有生成它；正在执行完全链接
+  Demuxer.vcxproj -> H:\Codes\FFmpegDemo\Demuxer\..\bin\Demuxer.exe
