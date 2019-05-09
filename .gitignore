@@ -1,14 +1,12 @@
-bin/*.*
-lib/*.*
+bin/*.exe
+bin/*.pdb
+bin/*.ilk
 /tools
 /ffmpeg411
-/files/aac/*.*
-/files/h264/*.*
-/files/mp4/*.*
-/files/pcm/*.*
-/files/yuv/*.*
+/files
 /examples
 /.vs
+
 
 
 
