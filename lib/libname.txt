@@ -5,3 +5,6 @@ avformat.lib
 avutil.lib
 swresample.lib
 swscale.lib
+SDL2.lib
+SDL2main.lib
+SDL2test.lib
