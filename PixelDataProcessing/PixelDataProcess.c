@@ -198,3 +198,56 @@ void yuv420p_psnr(char *path, char *file_name1, char *file_name2, int w, int h, 
 	fclose(pf1);
 	fclose(pf2);
 }
+
+void splite_rgb24(char *path, char *file_name, int w, int h, int num) {
+	FILE *pf = fopen(strcat(path, file_name), "rb+");
+	FILE *pf_r = fopen(strcat(path, "output_r.y"), "wb+");
+	FILE *pf_g = fopen(strcat(path, "output_g.y"), "wb+");
+	FILE *pf_b = fopen(strcat(path, "output_b.y"), "wb+");
+
+	unsigned char *pic = (unsigned char *)malloc(w * h * 3);
+
+	for (int i = 0; i < num; i++) {
+		fread(pic, 1, w * h * 3, pf);
+		for (int j = 0; j < w * h * 3; j = j + 3) {
+			fwrite(pic + j, 1, 1, pf_r);
+			fwrite(pic + j + 1, 1, 1, pf_g);
+			fwrite(pic + j + 2, 1, 1, pf_b);
+		}
+	}
+
+	free(pic);
+	fclose(pf);
+	fclose(pf_r);
+	fclose(pf_g);
+	fclose(pf_b);
+}
+
+void rgb24_to_bmp(char *path, char *rgb24_file_name, int w, int h, char *bmp_file_name) {
+	bmp_header bmp_head = { 0 };
+	info_header info_head = { 0 };
+	char bf_type[2] = { 'B','M' };
+	int header_size = sizeof(bf_type) + sizeof(bmp_header) + sizeof(info_header);
+	unsigned char *rgb24_buffer = NULL;
+	FILE *pf_rgb24 = NULL;
+	FILE *pf_bmp = NULL;
+
+	if ((pf_rgb24 = open(strcat(path, rgb24_file_name), "rb+")) == NULL) {
+		printf("Cannot open input RGB24 file.\n");
+		return;
+	}
+
+	if ((pf_bmp = open(strcat(path, bmp_file_name), "wb+")) == NULL) {
+		printf("Cannot open input BMP file.\n");
+		return;
+	}
+
+	rgb24_buffer = (unsigned char *)malloc(w * h * 3);
+	fread(rgb24_buffer, 1, w * h * 3, pf_rgb24);
+
+	bmp_head.image_size = 3 * w * h + header_size;
+	
+
+
+
+}
