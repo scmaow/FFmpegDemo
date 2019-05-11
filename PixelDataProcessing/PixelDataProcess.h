@@ -1,7 +1,13 @@
+/**
+ * 像素数据处理
+ *
+ * 05/11/2019
+*/
 #ifndef PIXEL_DATA_PROCESS  
 #define PIXEL_DATA_PROCESS
 
 #include <stdio.h>
+#include <stdbool.h>
 
 /**
  * 
@@ -47,29 +53,15 @@ void yuv420p_graybar(char *path, int w, int h, int ymin, int ymax, int bar_num);
 */
 void yuv420p_psnr(char *path, char *file_name1, char *file_name2, int w, int h,int num);
 
-
-/**
-*
-*
-*/
-void splite_rgb24(char *path, char *file_name, int w, int h, int num);
-
-/**
-*
-*
-*/
-void rgb24_to_bmp(char *path, char *rgb24_file_name, int w, int h, char *bmp_file_name);
-
 //BITMAPFILEHEADER
-struct bmp_header {
+typedef struct {
 	long image_size;
 	long blank;
 	long start_postion;
-};
-typedef bmp_header bmp_header;
+} bmp_header;
 
 //BITMAPINFOHEADER
-struct info_header {
+typedef struct {
 	long length;
 	long width;
 	long height;
@@ -81,8 +73,30 @@ struct info_header {
 	long y_pels;
 	long color_use;
 	long color_important;
-};
-typedef info_header info_header;
+} info_header;
+
+
+/**
+ *
+ *
+*/
+void splite_rgb24(char *path, char *file_name, int w, int h, int num);
+
+/**
+ *
+ *
+*/
+void rgb24_to_bmp(char *path, char *rgb24_file_name, int w, int h, char *bmp_file_name);
+
+unsigned char clip_value(unsigned char x, unsigned char min_val, unsigned char max_val);
+
+bool rgb24_to_yuv420p(unsigned char *rgb_buf, int w, int h, unsigned char *yuv_buf);
+
+/**
+ *
+ *
+*/
+void rgb24_convert_yuv420p(char *path, char *file_name, int w, int h, int num);
 
 #endif // !PIXEL_DATA_PROCESS
 

@@ -48,7 +48,7 @@ void splite_yuv444p(char *path, char *file_name, int w, int h, int num) {
 
 void yuv420p_gray(char *path, char *file_name, int w, int h, int num) {
 	FILE *pf = fopen(strcat(path, file_name), "rb+");
-	FILE *pf_gray = fopen(stract(path, "output_gray.yuv"), "+wb");
+	FILE *pf_gray = fopen(strcat(path, "output_gray.yuv"), "wb+");
 
 	unsigned char *pic = (unsigned char *)malloc(w * h * 3 / 2);
 
@@ -67,7 +67,7 @@ void yuv420p_half_y(char *path, char *file_name, int w, int h, int num) {
 	FILE *pf = fopen(strcat(path, file_name), "rb+");
 	FILE *pf_h = fopen(strcat(path, "output_half_y.yuv"), "wb+");
 
-	unsigned char *pic = (unsigned char *)molloc(w * h * 3 / 2);
+	unsigned char *pic = (unsigned char *)malloc(w * h * 3 / 2);
 
 	for (int i = 0; i < num; i++) {
 		fread(pic, 1, w * h * 3 / 2, pf);
@@ -85,7 +85,7 @@ void yuv420p_border(char *path, char *file_name, int w, int h, int border, int n
 	FILE *pf = fopen(strcat(path, file_name), "rb+");
 	FILE *pf_b = fopen(strcat(path, "output_border.yuv"), "wb+");
 
-	unsigned char *pic = (unsigned char *)molloc(w * h * 3 / 2);
+	unsigned char *pic = (unsigned char *)malloc(w * h * 3 / 2);
 
 	for (int i = 0; i < num; i++) {
 		fread(pic, 1, w * h * 3 / 2, pf);
@@ -246,8 +246,53 @@ void rgb24_to_bmp(char *path, char *rgb24_file_name, int w, int h, char *bmp_fil
 	fread(rgb24_buffer, 1, w * h * 3, pf_rgb24);
 
 	bmp_head.image_size = 3 * w * h + header_size;
-	
+	bmp_head.start_postion = header_size;
+
+	info_head.length = sizeof(info_header);
+	info_head.width = w;
+	info_head.height = h;
+	info_head.color_plane = 1;
+	info_head.bit_color = 24;
+	info_head.real_size = 3 * w * h;
+
+	fwrite(bf_type, 1, sizeof(bf_type), pf_bmp);
+	fwrite(&bmp_head, 1, sizeof(bmp_head), pf_bmp);
+	fwrite(&info_head, 1, sizeof(info_head), pf_bmp);
+
+	for (int j = 0; j < h; j++) {
+		for (int i = 0; i < w; i++) {
+			char tmp = rgb24_buffer[(j * w + i) * 3 + 2];
+			rgb24_buffer[(j * w + i) * 3 + 2] = rgb24_buffer[(j * w + i) * 3 + 0];
+			rgb24_buffer[(j * w + i) * 3 + 0] = tmp;
+		}
+	}
+
+	fwrite(rgb24_buffer, 3 * w * h, 1, pf_bmp);
+
+	fclose(pf_rgb24);
+	fclose(pf_bmp);
+	free(rgb24_buffer);
+}
+
+unsigned char clip_value(unsigned char x, unsigned char min_val, unsigned char max_val) {
+	if (x > max_val) {
+		return max_val;
+	}
+	else if (x < min_val) {
+		return min_val;
+	}
+	else {
+		return x;
+	}
+}
 
 
+bool rgb24_to_yuv420p(unsigned char *rgb_buf, int w, int h, unsigned char *yuv_buf) {
+
+
+	return true;
+}
+
+void rgb24_convert_yuv420p(char *path, char *file_name, int w, int h, int num) {
 
 }
