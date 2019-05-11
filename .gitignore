@@ -10,3 +10,9 @@ bin/*.ilk
 
 
 
+*.pdb
+*.idb
+*.tlog
+*.lastbuildstate
+*.obj
+*.log
