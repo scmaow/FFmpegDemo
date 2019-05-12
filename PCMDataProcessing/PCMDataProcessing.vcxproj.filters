@@ -15,15 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PixelDataProcess.cpp">
+    <ClCompile Include="PCMDataProcessing.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="PixelDataProcessing.cpp">
+    <ClCompile Include="PCMDataProcess.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PixelDataProcess.h">
+    <ClInclude Include="PCMDataProcess.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

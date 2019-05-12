@@ -1,5 +1,6 @@
 #include "PixelDataProcess.h"
-#include <string.h>
+#include <cstring>
+#include <cstdlib>
 
 void splite_yuv420p(char *path, char *file_name, int w, int h, int num) {
 	FILE *pf = fopen(strcat(path,file_name), "rb+");
@@ -125,7 +126,7 @@ void yuv420p_graybar(char *path, int w, int h, int ymin, int ymax, int bar_num) 
 	data_u = (unsigned char *)malloc(uv_w * uv_h);
 	data_v = (unsigned char *)malloc(uv_w * uv_h);
 
-	if ((pf = open(strcat(path, "output_yuv_bar.yuv"), "wb+")) == NULL) {
+	if ((pf = fopen(strcat(path, "output_yuv_bar.yuv"), "wb+")) == NULL) {
 		printf("Cannot create file.\n");
 		return;
 	}
@@ -232,12 +233,12 @@ void rgb24_to_bmp(char *path, char *rgb24_file_name, int w, int h, char *bmp_fil
 	FILE *pf_rgb24 = NULL;
 	FILE *pf_bmp = NULL;
 
-	if ((pf_rgb24 = open(strcat(path, rgb24_file_name), "rb+")) == NULL) {
+	if ((pf_rgb24 = fopen(strcat(path, rgb24_file_name), "rb+")) == NULL) {
 		printf("Cannot open input RGB24 file.\n");
 		return;
 	}
 
-	if ((pf_bmp = open(strcat(path, bmp_file_name), "wb+")) == NULL) {
+	if ((pf_bmp = fopen(strcat(path, bmp_file_name), "wb+")) == NULL) {
 		printf("Cannot open input BMP file.\n");
 		return;
 	}

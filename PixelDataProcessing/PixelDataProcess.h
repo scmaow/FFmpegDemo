@@ -3,11 +3,11 @@
  *
  * 05/11/2019
 */
-#ifndef PIXEL_DATA_PROCESS  
-#define PIXEL_DATA_PROCESS
+#ifndef PIXEL_DATA_PROCESS_H
+#define PIXEL_DATA_PROCESS_H
 
-#include <stdio.h>
-#include <stdbool.h>
+#include <cstdio>
+#include <cstdbool>
 
 /**
  * 
@@ -98,5 +98,5 @@ bool rgb24_to_yuv420p(unsigned char *rgb_buf, int w, int h, unsigned char *yuv_b
 */
 void rgb24_convert_yuv420p(char *path, char *file_name, int w, int h, int num);
 
-#endif // !PIXEL_DATA_PROCESS
+#endif // !PIXEL_DATA_PROCESS_H
 
