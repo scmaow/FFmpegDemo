@@ -54,14 +54,15 @@ void yuv420p_graybar(char *path, int w, int h, int ymin, int ymax, int bar_num);
 void yuv420p_psnr(char *path, char *file_name1, char *file_name2, int w, int h,int num);
 
 //BITMAPFILEHEADER
-typedef struct {
+struct bmp_header {
 	long image_size;
 	long blank;
 	long start_postion;
-} bmp_header;
+};
+typedef struct bmp_header bmp_header;
 
 //BITMAPINFOHEADER
-typedef struct {
+struct info_header {
 	long length;
 	long width;
 	long height;
@@ -73,7 +74,8 @@ typedef struct {
 	long y_pels;
 	long color_use;
 	long color_important;
-} info_header;
+};
+typedef struct info_header info_header;
 
 
 /**
