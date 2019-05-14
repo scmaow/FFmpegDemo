@@ -58,7 +58,7 @@ int get_annexb_nalu(nalu_t *nalu) {
 		nalu->start_code_prefix_len = 3;
 	}
 
-	//step2: 获取nalu的长度，到下一个nalu的startcode或文件结束为止，
+	//step2: 获取nalu的长度，到下一个nalu的startcode或文件结束为止
 	int start_code_found = 0; //没找到
 	start_code2 = -1;
 	start_code3 = -1;
@@ -144,26 +144,26 @@ int simplest_h264_parser(const char *url) {
 		char type_str[20] = { 0 };
 
 		switch (nalu->nalu_unit_type) {
-			case nalu_type_slice:sprintf(type_str, "SLICE"); break;
-			case nalu_type_dpa:sprintf(type_str, "DPA"); break;
-			case nalu_type_dpb:sprintf(type_str, "DPB"); break;
-			case nalu_type_dpc:sprintf(type_str, "DPC"); break;
-			case nalu_type_idr:sprintf(type_str, "IDR"); break;
-			case nalu_type_sei:sprintf(type_str, "SEI"); break;
-			case nalu_type_sps:sprintf(type_str, "SPS"); break;
-			case nalu_type_pps:sprintf(type_str, "PPS"); break;
-			case nalu_type_aud:sprintf(type_str, "AUD"); break;
-			case nalu_type_eoseq:sprintf(type_str, "EOSEQ"); break;
-			case nalu_type_eostream:sprintf(type_str, "EOSTREAM"); break;
-			case nalu_type_fill:sprintf(type_str, "FILL"); break;
+		case nalu_type_slice:sprintf(type_str, "SLICE"); break;
+		case nalu_type_dpa:sprintf(type_str, "DPA"); break;
+		case nalu_type_dpb:sprintf(type_str, "DPB"); break;
+		case nalu_type_dpc:sprintf(type_str, "DPC"); break;
+		case nalu_type_idr:sprintf(type_str, "IDR"); break;
+		case nalu_type_sei:sprintf(type_str, "SEI"); break;
+		case nalu_type_sps:sprintf(type_str, "SPS"); break;
+		case nalu_type_pps:sprintf(type_str, "PPS"); break;
+		case nalu_type_aud:sprintf(type_str, "AUD"); break;
+		case nalu_type_eoseq:sprintf(type_str, "EOSEQ"); break;
+		case nalu_type_eostream:sprintf(type_str, "EOSTREAM"); break;
+		case nalu_type_fill:sprintf(type_str, "FILL"); break;
 		}
 
 		char idc_str[20] = { 0 };
 		switch (nalu->nalu_reference_idc >> 5) {
-			case nalu_priority_disposable:sprintf(idc_str, "DISPOS"); break;
-			case nalu_priority_low:sprintf(idc_str, "LOW"); break;
-			case nalu_priority_high:sprintf(idc_str, "HIGH"); break;
-			case nalu_priority_highest:sprintf(idc_str, "HIGHEST"); break;
+		case nalu_priority_disposable:sprintf(idc_str, "DISPOS"); break;
+		case nalu_priority_low:sprintf(idc_str, "LOW"); break;
+		case nalu_priority_high:sprintf(idc_str, "HIGH"); break;
+		case nalu_priority_highest:sprintf(idc_str, "HIGHEST"); break;
 		}
 
 		fprintf(out, "%5d| %8d| %7s| %6s| %8d|\n", nalu_num, data_offset, idc_str, type_str, nalu->len);

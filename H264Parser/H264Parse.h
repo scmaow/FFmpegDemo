@@ -3,7 +3,6 @@
  *
  * 05/14/2019
 */
-#pragma once
 #ifndef H264_PARSE_H
 #define H264_PARSE_H
 
