@@ -9,7 +9,7 @@ int get_adts_frame(unsigned char *buf, int buf_size, unsigned char *data, int *d
 
 	int size = 0;
 	while (1) {
-		if (buf_size < 7)
+		if (buf_size < 7) //现在的数据不足以构成一个frame header
 			return -1;
 		//计算frame长度(frame header + raw data)
 		//Sync words
@@ -23,7 +23,7 @@ int get_adts_frame(unsigned char *buf, int buf_size, unsigned char *data, int *d
 		++buf;
 	}
 
-	if (buf_size < size)
+	if (buf_size < size) //现在的数据不是一个完整的音频帧
 		return 1;
 
 	memcpy(data, buf, size);
@@ -34,8 +34,8 @@ int get_adts_frame(unsigned char *buf, int buf_size, unsigned char *data, int *d
 int simplest_aac_parser(const char *url) {
 	FILE *out = stdout;
 
-	unsigned char *acc_frame = (unsigned char *)malloc(1024 * 5);
-	unsigned char *acc_buf = (unsigned char *)malloc(1024 * 1024);
+	unsigned char *aac_frame = (unsigned char *)malloc(1024 * 5); //帧净荷主要由原始帧构成，可包含1-4个原始帧
+	unsigned char *aac_buf = (unsigned char *)malloc(1024 * 1024);
 
 	FILE *pf = fopen(url, "rb");
 	if (!pf) {
@@ -53,24 +53,25 @@ int simplest_aac_parser(const char *url) {
 	int offset = 0;
 
 	while (!feof(pf)) {
-		data_size = fread(acc_buf + offset, 1, 1024 * 1024 - offset, pf);
-		unsigned char *input_data = acc_buf;
+		data_size = fread(aac_buf + offset, 1, 1024 * 1024 - offset, pf);
+		unsigned char *input_data = aac_buf;
 
 		while (1) {
-			int ret = get_adts_frame(input_data, data_size, acc_frame, &size);
+			int ret = get_adts_frame(input_data, data_size, aac_frame, &size);
 			if (ret == -1) {
 				break;
 			}
-			else if (ret == 1) {
-				memcpy(acc_buf, input_data, data_size);
+			else if (ret == 1) { //复制frame header + raw data数据
+				memcpy(aac_buf, input_data, data_size);
 				offset = data_size;
 				break;
 			}
 
+			//解析一个完整的aac帧
 			char profile_str[10] = { 0 };
 			char frequence_str[10] = { 0 };
 
-			unsigned char profile = acc_frame[2] & 0xc0;
+			unsigned char profile = aac_frame[2] & 0xc0;
 			profile = profile >> 6;
 
 			switch (profile) {
@@ -80,7 +81,7 @@ int simplest_aac_parser(const char *url) {
 			default:sprintf(profile_str, "unknown"); break;
 			}
 
-			unsigned char sampling_frequency_index = acc_frame[2] & 0x3c;
+			unsigned char sampling_frequency_index = aac_frame[2] & 0x3c;
 			sampling_frequency_index = sampling_frequency_index >> 2;
 			switch (sampling_frequency_index) {
 			case 0: sprintf(frequence_str, "96000Hz"); break;
@@ -105,7 +106,7 @@ int simplest_aac_parser(const char *url) {
 	}
 
 	fclose(pf);
-	free(acc_buf);
-	free(acc_frame);
+	free(aac_buf);
+	free(aac_frame);
 	return 0;
 }
