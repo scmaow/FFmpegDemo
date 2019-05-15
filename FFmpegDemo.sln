@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AACParser", "AACParser\AACP
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FLVParser", "FLVParser\FLVParser.vcxproj", "{AE9B3CE2-3FA1-42AA-80A0-D8AE41BFCCE6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UdpRtpParser", "UdpRtpParser\UdpRtpParser.vcxproj", "{B9B19304-943D-4D74-82C1-631A2148F9C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -131,6 +133,14 @@ Global
 		{AE9B3CE2-3FA1-42AA-80A0-D8AE41BFCCE6}.Release|x64.Build.0 = Release|x64
 		{AE9B3CE2-3FA1-42AA-80A0-D8AE41BFCCE6}.Release|x86.ActiveCfg = Release|Win32
 		{AE9B3CE2-3FA1-42AA-80A0-D8AE41BFCCE6}.Release|x86.Build.0 = Release|Win32
+		{B9B19304-943D-4D74-82C1-631A2148F9C7}.Debug|x64.ActiveCfg = Debug|x64
+		{B9B19304-943D-4D74-82C1-631A2148F9C7}.Debug|x64.Build.0 = Debug|x64
+		{B9B19304-943D-4D74-82C1-631A2148F9C7}.Debug|x86.ActiveCfg = Debug|Win32
+		{B9B19304-943D-4D74-82C1-631A2148F9C7}.Debug|x86.Build.0 = Debug|Win32
+		{B9B19304-943D-4D74-82C1-631A2148F9C7}.Release|x64.ActiveCfg = Release|x64
+		{B9B19304-943D-4D74-82C1-631A2148F9C7}.Release|x64.Build.0 = Release|x64
+		{B9B19304-943D-4D74-82C1-631A2148F9C7}.Release|x86.ActiveCfg = Release|Win32
+		{B9B19304-943D-4D74-82C1-631A2148F9C7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
