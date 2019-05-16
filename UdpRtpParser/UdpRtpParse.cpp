@@ -10,7 +10,7 @@ int simplest_udp_parser(int port) {
 
 	FILE *out = stdout;
 
-	FILE *pf_ts = fopen("output_dump.ts", "wb+");
+	FILE *pf_ts = fopen("../files/outfiles/output_dump.ts", "wb+");
 
 	if (WSAStartup(socket_ver, &wsa_data) != 0)
 		return -1;
@@ -83,14 +83,14 @@ int simplest_udp_parser(int port) {
 				unsigned int seq_no = ntohs(rtp_header.seq_no);
 
 				fprintf(out, "[RTP Pkt] %5d| %5s| %10u| %5d| %5d|\n", cnt, payload_str, timestamp, seq_no, pkt_size);
-
+				//保存rtp的数据部分
 				char *rtp_data = recv_data + rtp_header_size;
 				int rtp_data_size = pkt_size - rtp_header_size;
 				fwrite(rtp_data, rtp_data_size, 1, pf_ts);
 
-				if (parse_mpeg_ts != 0 && payload == 33) {
-					for (int i = 0; i < rtp_data_size; i+=188) {
-						if (rtp_data[i] != 0x47)
+				if (parse_mpeg_ts != 0 && payload == 33) {  //MP2T
+					for (int i = 0; i < rtp_data_size; i+=188) { //TS Packet 大小固定188byte
+						if (rtp_data[i] != 0x47) //同步字节
 							break;
 						fprintf(out, "  [MPEGTS Pkt]\n");
 					}
